@@ -1,0 +1,25 @@
+class Solution {
+    /**
+     * @param {string[]} operations
+     * @return {number}
+     */
+    calPoints(operations) {
+        let stack = [];
+
+        for(let i = 0; i < operations.length; i++) {
+            let lastIndex = stack.length - 1;
+
+            if(!isNaN(operations[i])) {
+                stack.push(Number(operations[i]));
+            } else if(operations[i] == "+") {
+                stack.push(stack[lastIndex] + stack[lastIndex - 1]);
+            } else if(operations[i] == "C") {
+                stack.pop();
+            } else {
+                stack.push(stack[lastIndex] * 2);
+            }
+        }
+
+        return stack.reduce((acc, curr) => acc += curr, 0);
+    }
+}
